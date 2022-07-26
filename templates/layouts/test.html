@@ -39,7 +39,7 @@
 
     <script>
         if(JSON.parse(localStorage.getItem("est-python")) === null) {
-            window.location = "/inicio"
+            window.location = "/"
         }
 
         let st = JSON.parse(localStorage.getItem("est-python"))
@@ -58,14 +58,6 @@
         setInterval(()=>{
             tiempo++
         }, 1000)
-
-        $("#avanzar").on("click", function(){
-            let storage = JSON.parse(localStorage.getItem("est-python"))
-            let minutos = parseInt(tiempo / 60)
-            storage.tiempo = minutos
-            localStorage.setItem("est-python", JSON.stringify(storage))
-            window.location = "/"
-        })
 
         let respuestas = []
         let objetos = []

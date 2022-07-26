@@ -152,7 +152,7 @@
     <script>
         let starsData = JSON.parse(localStorage.getItem("stars"))
         if(starsData === null) {
-            window.location = "/inicio"
+            window.location = "/"
         }
 
         const changeRating = document.querySelectorAll('input[name=rating]');
@@ -173,7 +173,7 @@
             $.post("setStars", {...starsData}, function(respuesta){
                 if(respuesta.result) {
                     localStorage.removeItem("stars")
-                    window.location = "/inicio"
+                    window.location = "/"
                 }
             })
         })

@@ -25,7 +25,7 @@
     <script>
 
         if(localStorage.getItem("est-python") === null) {
-            window.location = "/inicio"
+            window.location = "/"
         } 
     
         let storage = JSON.parse(localStorage.getItem("est-python"))
@@ -33,7 +33,7 @@
 
         
         if(paralelo === "") {
-            window.location = "/inicio"
+            window.location = "/"
         }
 
         if(storage.cedula !== "") {

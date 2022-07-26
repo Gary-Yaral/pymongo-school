@@ -33,14 +33,14 @@
 
     <script>
         if(localStorage.getItem("est-python") === null) {
-            window.location = "/inicio"
+            window.location = "/"
         } 
     
         let storage = JSON.parse(localStorage.getItem("est-python"))
         let cedula = storage.cedula
         
         if(cedula === "") {
-            window.location = "/inicio"
+            window.location = "/"
         }
         
         let tiempo = 0

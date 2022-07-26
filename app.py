@@ -14,7 +14,7 @@ mongo = PyMongo(app)
 def teacher():
     return render_template('layouts/docente.html')
 
-@app.route('/inicio')
+@app.route('/')
 def inicio():
     return render_template('layouts/inicio.html')
 

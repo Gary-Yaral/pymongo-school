@@ -1,5 +1,4 @@
-paraleloB = [
-    {
+paraleloB = [{
         "Id_Estudiante": "1898235200",
         "Nombre_Apellido": "Antonio Ronaldo Paredes Ramirez",
         "Paralelo": "B",
@@ -58,5 +57,5 @@ paraleloB = [
         "Nombre_Apellido": "Germania Elizabeth Nuñez Velez",
         "Paralelo": "B",
         "Foto": "foto_1275635209.jpg"
-    },
+    }
 ]

@@ -10,7 +10,7 @@ app._static_folder = os.path.abspath("templates/static/")
 app.config["MONGO_URI"] = "mongodb://localhost/escuela"
 mongo = PyMongo(app)
 
-@app.route('/login')
+@app.route('/docente')
 def teacher():
     return render_template('layouts/docente.html')
 
@@ -37,6 +37,10 @@ def amarillo():
 @app.route('/test')
 def test():
     return render_template('layouts/test.html')
+
+@app.route('/stars')
+def stars():
+    return render_template('layouts/stars.html')
 
 @app.route('/notas')
 def notas():
@@ -71,12 +75,35 @@ def getEstudiantes():
     else:
         return f"<h1>No ha enviado datos</h1>"
 
+@app.route('/setStars', methods=["POST", "GET"])
+def setStars():
+    if request.method == "POST":
+        cedula = request.form["cedula"]
+        stars = request.form["stars"]
+        result = mongo.db.estudiantes.update_one({"Id_Estudiante": cedula}, {
+            "$set":{
+                "Test.Estrellas": int(stars)
+                }
+            }
+        )
+        if result :
+            return jsonify({"result": True}) 
+        else:
+            return jsonify({"result": False}) 
+    else:
+        return f"<h1>No ha enviado datos</h1>"
+
 @app.route('/saveData', methods=["POST", "GET"])
 def saveData():
     if request.method == "POST":
         cedula = request.form["cedula"]
         tiempo = request.form["tiempo"]
         resuelto = request.form["resuelto"]
+
+        if resuelto == "true":
+            resuelto = True
+        else:
+            resuelto = False
 
         result = mongo.db.estudiantes.update_one({"Id_Estudiante": cedula}, {
             "$set":{

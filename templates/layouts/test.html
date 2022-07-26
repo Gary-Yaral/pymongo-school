@@ -69,6 +69,10 @@
 
         let respuestas = []
         let objetos = []
+        let objStars = {
+            cedula: "",
+            stars: 0
+        }
 
         $("#row").on("click", function(e){
             let data = JSON.parse(localStorage.getItem("est-python"))
@@ -104,10 +108,12 @@
                             let resuelto = true
                             let data = JSON.parse(localStorage.getItem("est-python"))
                             $.post("saveData", {...data, tiempo, resuelto}, function(response){
-                                console.log(response)
                                 if(response.result) {
+                                    objStars.cedula = data.cedula
+                                    let stars = JSON.stringify(objStars)
                                     localStorage.removeItem("est-python")
-                                    window.location = "/inicio"
+                                    localStorage.setItem("stars", stars)
+                                    window.location = "/stars"
                                 }
                             })
 
@@ -139,8 +145,11 @@
                                 $.post("saveData", {...data, tiempo, resuelto}, function(response){
                                     console.log(response)
                                     if(response.result) {
+                                        objStars.cedula = data.cedula
+                                        let stars = JSON.stringify(objStars)
                                         localStorage.removeItem("est-python")
-                                        window.location = "/inicio"
+                                        localStorage.setItem("stars", stars)
+                                        window.location = "/stars"
                                     }
                                 })
                             })

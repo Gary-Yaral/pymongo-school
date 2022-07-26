@@ -23,6 +23,7 @@
 <body class="container pt-5rem">
     <button class="btn btn-danger btn-exit" id="salir">Salir</button>
     <h4 id="docente"></h4>
+    <h5 id="paralelo"></h5>
     <table class="table table-striped">
         <thead class="bg-dark text-white">
             <tr>
@@ -30,8 +31,9 @@
             <th scope="col">Cédula</th>
             <th scope="col">Nombre</th>
             <th scope="col">Tiempo</th>
-            <th scope="col">Nota</th>
+            <th scope="col">Estrellas</th>
             <th scope="col">Resuelto</th>
+            <th scope="col">Nota</th>
             <th scope="col"></th>
             </tr>
         </thead>
@@ -47,10 +49,11 @@
         let storage = localStorage.getItem("session-teacher")
 
         if(storage === null) {
-            window.location = "/login"
+            window.location = "/docente"
         }
 
         $("#docente").html(`Docente: ${JSON.parse(storage).nombre}`)
+        $("#paralelo").html(`Paralelo: ${JSON.parse(storage).paralelo}`)
         let paralelo = JSON.parse(storage).paralelo
         $.post("getParalelo", {paralelo}, function(respuesta){
             let res = JSON.parse(respuesta)
@@ -63,8 +66,9 @@
                     <td>${std.Id_Estudiante}</td>
                     <td>${std.Nombre_Apellido}</td>
                     <td>${std.Test.Tiempo} seg</td>
-                    <td>${std.Test.Nota}</td>
-                    <td>${std.Test.Resuelto ? "OK": "NO"}</td>
+                    <td class="text-center">${std.Test.Estrellas}</td>
+                    <td class="text-center">${std.Test.Resuelto ? "SI": "NO"}</td>
+                    <td class="text-center">${std.Test.Nota}</td>
                     <td>
                         <button type= "button" class="btn btn-success">Calificar</button>
                     </td>
@@ -76,7 +80,7 @@
 
         $("#salir").on("click", function(){
             localStorage.removeItem("session-teacher")
-            window.location = "login"
+            window.location = "docente"
         })
 
     </script>

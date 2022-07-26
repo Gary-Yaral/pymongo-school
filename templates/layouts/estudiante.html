@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudiante | Ingreso</title>
     <link rel="stylesheet" href="../static/css/estudiantes.css">
+    <link rel="stylesheet" href="../static/css/rojo.css">
 </head>
 <body class="container-custom">
     <h1></h1>
@@ -43,9 +44,8 @@
 
         $.post("/getParalelo", {paralelo}, function(respuesta){
             let result = JSON.parse(respuesta)
-            console.log(result)
             result.forEach(std => {
-                let card = `<img src="" alt="${std.Id_Estudiante}" class="custom-card">`
+                let card = `<img src="../static/fotos/foto_${std.Id_Estudiante}.jpg" alt="${std.Id_Estudiante}" class="custom-card">`
                 $("#fotos").append(card)
             });
         })

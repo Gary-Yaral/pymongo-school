@@ -62,14 +62,23 @@
         $("form").on("submit", (e) => {
             e.preventDefault()
             $.post("/processTeacher", $("form").serialize(), function(response) {
-                if(!response.result) {
+                let res = JSON.parse(response)
+
+                console.log(res)
+                if(!response) {
                     Swal.fire(
                     'Atención!',
                     'Error de usuario o contraseña!',
                     'warning'
                     )
                 } else {
-                    localStorage.setItem("session-teacher", $("#username").value)
+                    let cedula = res.Cedula
+                    let nombre = res.Nombre_Apellido
+                    let paralelo = res.Paralelo
+
+                    let data = JSON.stringify({cedula, nombre, paralelo})
+                    localStorage.setItem("session-teacher", data)
+                        
                     window.location = "/notas"
                 }
             })

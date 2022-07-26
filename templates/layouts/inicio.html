@@ -6,10 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Estudiante | Ingreso</title>
     <link rel="stylesheet" href="../static/css/estudiantes.css">
+    <link rel="stylesheet" href="../static/css/rojo.css">
 </head>
 <body class="container-custom">
     <h1>Bienvenidos queridos estudiantes</h1>
-    <h3>Selecciona paralelo</h3>
+    <h3>Selecciona tu paralelo</h3>
     <div class="container-btns">
         <button id="ParaleloA" class="custom-btn">A</button>
         <button id="ParaleloB" class="custom-btn">B</button>
@@ -37,10 +38,6 @@
             rojo: 0,
             amarillo: 0,
             azul: 0
-        }
-
-        if(localStorage.getItem("est-python") !== null) {
-            window.location = "estudiante"
         }
 
         $("#ParaleloA").on("click", () => {

@@ -16,7 +16,7 @@ def teacher():
 
 @app.route('/inicio')
 def inicio():
-    return render_template('layouts/login_estudiantes.html')
+    return render_template('layouts/inicio.html')
 
 @app.route('/estudiante')
 def estudiante():
@@ -49,8 +49,9 @@ def processTeacher():
         password = request.form["password"]
 
         data = {"Cedula": username, "Contraseña": password}
-        if mongo.db.docentes.find_one(data):
-            return jsonify({"result": True}) 
+        res = mongo.db.docentes.find_one(data)
+        if res:
+            return jsonify(json.dumps(res, default=str))
         else:
             return jsonify({"result": False}) 
     else:
@@ -75,8 +76,19 @@ def saveData():
     if request.method == "POST":
         cedula = request.form["cedula"]
         tiempo = request.form["tiempo"]
-      
-        return jsonify({"result": True}) 
+        resuelto = request.form["resuelto"]
+
+        result = mongo.db.estudiantes.update_one({"Id_Estudiante": cedula}, {
+            "$set":{
+                "Test.Tiempo": int(tiempo),
+                "Test.Resuelto": resuelto,
+                }
+            }
+        )
+        if result :
+            return jsonify({"result": True}) 
+        else:
+            return jsonify({"result": False}) 
     else:
         return f"<h1>No ha enviado datos</h1>"
 
@@ -90,8 +102,6 @@ def paralelo():
             return jsonify(json.dumps(res, default=str))
         else:
             return jsonify({"result": False}) 
-            
-
     else:
         return f"<h1>No ha enviado datos</h1>"
 

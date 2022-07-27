@@ -24,32 +24,39 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
     <script>
 
+        // Valida que exista la sesión
         if(localStorage.getItem("est-python") === null) {
             window.location = "/"
         } 
     
         let storage = JSON.parse(localStorage.getItem("est-python"))
         let paralelo = storage.paralelo
-
-        
+    
         if(paralelo === "") {
             window.location = "/"
         }
-
+        
+        // Validamos que el estudiante ya haya sido seleccionado
         if(storage.cedula !== "") {
             window.location = "/rojo"
         }
 
+        // Mostramos un mensaje de bienvenida con el paralelo
         $("h1").html("Bienvenidos al paralelo " + paralelo)
 
+        // Hacemos una petición al servidor para que nos traiga los datos de los estudiantes de ese paralelo
+
         $.post("/getParalelo", {paralelo}, function(respuesta){
+            // Parseamos los datos a formato json
             let result = JSON.parse(respuesta)
+            // Recorremos los datos mientras creamos las imagenes
             result.forEach(std => {
                 let card = `<img src="../static/fotos/foto_${std.Id_Estudiante}.jpg" alt="${std.Id_Estudiante}" class="custom-card">`
                 $("#fotos").append(card)
             });
         })
 
+        // Detecta que imagen selecciona el niño y guarda su cedula
         $("#fotos").on("click",function(e) {
             if(e.target.classList.contains("custom-card")) {
                 let cedula = e.target.getAttribute("alt")

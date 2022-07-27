@@ -46,19 +46,23 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
     <script>
+        // Validamos que exista la sessión
         let storage = localStorage.getItem("session-teacher")
-
         if(storage === null) {
             window.location = "/docente"
         }
 
+        // Añadimos lso títulos de la ventana
         $("#docente").html(`Docente: ${JSON.parse(storage).nombre}`)
         $("#paralelo").html(`Paralelo: ${JSON.parse(storage).paralelo}`)
+
+        // leemso la session para enviar el paralelo al servidor y asi obtener los datos
         let paralelo = JSON.parse(storage).paralelo
         $.post("getParalelo", {paralelo}, function(respuesta){
             let res = JSON.parse(respuesta)
             let tbody = document.querySelector("tbody")
             tbody.innerHTML = ""
+            // Recorremso los datos y creamos las filas
             res.forEach((std, index) => {
                 let fila = `
                 <tr>
@@ -78,6 +82,7 @@
             });
         })
 
+        // Elimina la sessión y redirecciona a la ventana de inicio del docente
         $("#salir").on("click", function(){
             localStorage.removeItem("session-teacher")
             window.location = "docente"

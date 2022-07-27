@@ -150,28 +150,36 @@
     integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
     crossorigin="anonymous"></script>
     <script>
+
+        // Validar que exista la sesion
         let starsData = JSON.parse(localStorage.getItem("stars"))
         if(starsData === null) {
             window.location = "/"
         }
 
+        // Seleccionar todos los inputs de las estrellas
         const changeRating = document.querySelectorAll('input[name=rating]');
+        // Asigamos el evento change que detecta hasta que estrella está seleccionado
         changeRating.forEach((radio) => {
             radio.addEventListener('change', getRating);
         });
 
+        // Inicamos nuestro contador de estrellas
         let starsCounter = 0;
 
+        // Esta función actualiza nuestro contador de estrellas
         function getRating() {
             let estrellas = document.querySelector('input[name=rating]:checked').value;
             starsCounter = estrellas
         }
 
+        // Enviamos los datos al servidor
         $("#btn-ok").on("click", function(){
             starsData = JSON.parse(localStorage.getItem("stars"))
             starsData.stars = starsCounter
             $.post("setStars", {...starsData}, function(respuesta){
                 if(respuesta.result) {
+                    // Destruimso la session y redireccionamos
                     localStorage.removeItem("stars")
                     window.location = "/"
                 }

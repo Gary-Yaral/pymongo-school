@@ -53,18 +53,20 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.5/dist/umd/popper.min.js" integrity="sha384-Xe+8cL9oJa6tN/veChSP7q+mnSPaj5Bcu9mPX5F5xIGE0DVittaqT5lorf0EI7Vk" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.min.js" integrity="sha384-ODmDIVzN+pFdexxHEHFBQH3/9/vQ9uori45z4JjnFsRydbmQbmL5t1tQ0culUzyK" crossorigin="anonymous"></script>
     <script>
+        // Verifcar si existe la sesion
+        // Si la session existe redirecciona a la ventana de las notas
         let storage = localStorage.getItem("session-teacher")
-
         if(storage !== null) {
             window.location = "/notas"
         }
         
+        // Validamos los datos de acceso
         $("form").on("submit", (e) => {
             e.preventDefault()
             $.post("/processTeacher", $("form").serialize(), function(response) {
+                // Leemos la respuesta del servidor
                 let res = JSON.parse(response)
-
-                console.log(res)
+                // Si la respuesta es un false, significa que no existe o no tenemos acceso
                 if(!response) {
                     Swal.fire(
                     'Atención!',
@@ -72,13 +74,14 @@
                     'warning'
                     )
                 } else {
+                    // Confirmamos que el usuario existe y la contraseña está bien
                     let cedula = res.Cedula
                     let nombre = res.Nombre_Apellido
                     let paralelo = res.Paralelo
-
+                    // Creamos una sesión la sesión
                     let data = JSON.stringify({cedula, nombre, paralelo})
                     localStorage.setItem("session-teacher", data)
-                        
+                    // Redireccionamos a las notas
                     window.location = "/notas"
                 }
             })

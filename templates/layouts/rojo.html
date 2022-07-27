@@ -18,10 +18,10 @@
             <button id="avanzar">Avanzar</button>
         </div>
     </div>
-    <div class="row">
-        <img class="col-4" src="../static/images/objetos/corazon.png" alt="">
-        <img class="col-4" src="../static/images/objetos/manzana.jpg" alt="">
-        <img class="col-4" src="../static/images/objetos/tomate.jpg" alt="">
+    <div class="row" id="imagenes">
+        <img class="col-4 hidden" src="../static/images/objetos/manzana.jpg" alt="">
+        <img class="col-4 hidden" src="../static/images/objetos/tomate.png" alt="">
+        <img class="col-4 hidden" src="../static/images/objetos/corazon.png" alt="">
     </div>
 
     <script
@@ -50,7 +50,29 @@
 
         setInterval(()=>{
             tiempo++
-        }, 1000)
+        }, 100)
+
+
+        setTimeout(()=>{
+           let manzana = document.querySelectorAll(".col-4")[0]
+           manzana.classList.remove("hidden")
+        }, 19000)
+
+        setTimeout(()=>{
+           let tomate = document.querySelectorAll(".col-4")[1]
+           tomate.classList.remove("hidden")
+        }, 21000)
+
+        setTimeout(()=>{
+           let corazon = document.querySelectorAll(".col-4")[2]
+           corazon.classList.remove("hidden")
+        }, 23000)
+
+        setTimeout(()=>{
+           let btn = document.querySelector("#avanzar")
+           btn.classList.add("mover")
+        }, 30000)
+
 
         $("#avanzar").on("click", function(){
             let storage = JSON.parse(localStorage.getItem("est-python"))

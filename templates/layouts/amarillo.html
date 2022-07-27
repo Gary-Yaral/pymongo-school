@@ -19,9 +19,9 @@
     </div>
     <h1 class="mb-5">El color amarillo</h1>
     <div class="row">
-        <img class="col-4" src="../static/images/objetos/pollito.jpg" alt="">
-        <img class="col-4" src="../static/images/objetos/sol.jpg" alt="">
-        <img class="col-4" src="../static/images/objetos/banano.jpg" alt="">
+        <img class="col-4 hidden" src="../static/images/objetos/pollito.png" alt="">
+        <img class="col-4 hidden" src="../static/images/objetos/sol.png" alt="">
+        <img class="col-4 hidden" src="../static/images/objetos/banano.png" alt="">
     </div>
 
     <script
@@ -50,6 +50,25 @@
             tiempo++
         }, 1000)
 
+        setTimeout(()=>{
+           let pollito = document.querySelectorAll(".col-4")[0]
+           pollito.classList.remove("hidden")
+        }, 9000)
+
+        setTimeout(()=>{
+           let sol = document.querySelectorAll(".col-4")[1]
+           sol.classList.remove("hidden")
+        }, 12000)
+
+        setTimeout(()=>{
+           let banana = document.querySelectorAll(".col-4")[2]
+           banana.classList.remove("hidden")
+        }, 14000)
+
+        setTimeout(()=>{
+           let btn = document.querySelector("#avanzar")
+           btn.classList.add("mover")
+        }, 29000)
         
         $("#avanzar").on("click", function(){
             let storage = JSON.parse(localStorage.getItem("est-python"))

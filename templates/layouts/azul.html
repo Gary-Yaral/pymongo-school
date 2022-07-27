@@ -19,9 +19,9 @@
     </div>
     <h1 class="mb-5">El color azul</h1>
     <div class="row">
-        <img class="col-4" src="../static/images/objetos/mar.jpg" alt="">
-        <img class="col-4" src="../static/images/objetos/cielo.jpg" alt="">
-        <img class="col-4" src="../static/images/objetos/mariposa.jpg" alt="">
+        <img class="col-4 hidden" src="../static/images/objetos/mar.jpg" alt="">
+        <img class="col-4 hidden" src="../static/images/objetos/cielo.jpg" alt="">
+        <img class="col-4 hidden" src="../static/images/objetos/mariposa.jpg" alt="">
     </div>
 
     <script
@@ -52,7 +52,26 @@
             tiempo++
         }, 1000)
 
-        
+        setTimeout(()=>{
+           let mar = document.querySelectorAll(".col-4")[0]
+           mar.classList.remove("hidden")
+        }, 11000)
+
+        setTimeout(()=>{
+           let cielo = document.querySelectorAll(".col-4")[1]
+           cielo.classList.remove("hidden")
+        }, 14000)
+
+        setTimeout(()=>{
+           let mariposa = document.querySelectorAll(".col-4")[2]
+           mariposa.classList.remove("hidden")
+        }, 17000)
+
+        setTimeout(()=>{
+           let btn = document.querySelector("#avanzar")
+           btn.classList.add("mover")
+        }, 38000)
+
         $("#avanzar").on("click", function(){
             let storage = JSON.parse(localStorage.getItem("est-python"))
             let segundos = tiempo
